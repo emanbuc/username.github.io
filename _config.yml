@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: My personal blog
-description: blog description
+description: Experimental blog generated from MarkDowon file in GitHub repository using GitHub Pages
 github_username: emanbuc
 
 # Email and twitter are optional:
