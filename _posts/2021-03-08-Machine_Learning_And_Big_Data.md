@@ -9,7 +9,7 @@
   - For ML we need Big Data
   - ML for data analysis in physics and other sciences
 
-- AI at Scale
+- [AI at Scale](2021-03-08-AI_at_scale.html)
 
 - ML on Big Data
   - Big Data -> Big Opportunities
