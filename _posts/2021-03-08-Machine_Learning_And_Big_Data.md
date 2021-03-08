@@ -1,8 +1,8 @@
-# Machine Learning ad Big Data
+# Machine Learning and Big Data
 
 ## Table of Content
 
-- [Big Data Meet ML](2021-03-08-big_data_meet_ml.md)
+- [Big Data Meet ML](2021-03-08-big_data_meet_ml.html)
   - What is ML
   - What is Big Data
   - For Big Data Analysis we need Machine Learning
