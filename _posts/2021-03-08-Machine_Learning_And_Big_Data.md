@@ -1,18 +1,15 @@
->
 # Machine Learning ad Big Data
 
 ## Table of Content
 
-- [ML and Big Data](ml_and_big_data.md)
+- [Big Data Meet ML](2021-03-08-big_data_meet_ml.md)
   - What is ML
   - What is Big Data
-
-- Big Data Meet ML
   - For Big Data Analysis we need Machine Learning
   - For ML we need Big Data
   - ML for data analysis in physics and other sciences
 
--  AI at Scale
+- AI at Scale
 
 - ML on Big Data
   - Big Data -> Big Opportunities
