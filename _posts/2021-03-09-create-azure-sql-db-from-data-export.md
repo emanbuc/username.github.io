@@ -11,43 +11,43 @@ There are specific tools you can use to migrate an existing database to Azure SQ
 The first step is in both cases to create a backpack file with "Export Data Tier Application"
 
 
-![export 1](../images/sql_export_data_tier_01.png)
+![export 1](/images/sql_export_data_tier_01.png)
 
-![export 1](../images/sql_export_data_tier_01.png)
+![export 1](/images/sql_export_data_tier_01.png)
 
 ## Deploy database to Microsoft  Azure SQL
 
 _If you can not connect to Azure from the original server you may restore a copy of the original DB in PC connected to Internet and the from here run "Deploy Database to Azure SQL"._
 
-![Deploy to azure](../images/creazione_db_azure_sql_04.png)
+![Deploy to azure](/images/creazione_db_azure_sql_04.png)
 
 Follow the wizard and fill all required field
 
-![Deployment settings ](../images/creazione_db_azure_sql_05.png)
+![Deployment settings ](/images/creazione_db_azure_sql_05.png)
 
 You need to connect to Azure SQL server with a user with privileges to create a new database such as a user with role "contributor" assigned in RBAC.
 
-![Login to SQL server](../images/creazione_db_azure_sql_01.png)
+![Login to SQL server](/images/creazione_db_azure_sql_01.png)
 
 Please nota that you must select the appropriate authentication type from the drop-down list. Multi Factor Authentication (MFA) is active for may account so "Azure Active Directory" is the correct one from me.
 
 Then the appropriate service plan for the new database. Nota that these settings can be changed later after deploy completed.
 
-![Deployment settings - part 2 ](../images/creazione_db_azure_sql_06.png)
+![Deployment settings - part 2 ](/images/creazione_db_azure_sql_06.png)
 
 Review deploy setting and click "Finish”.  When you do, you will see the progress of the migration, step by step while waiting until completed.
 
-![Deployment settings - review ](../images/creazione_db_azure_sql_07.png)
+![Deployment settings - review ](/images/creazione_db_azure_sql_07.png)
 
 As you can see above, there are number of steps.  You can also see that there is a step named “Processing Table”.  This step will show each table as it is processed and migrated to Azure SQL Database.
 
-![Deploying ](../images/creazione_db_azure_sql_08.png)
+![Deploying ](/images/creazione_db_azure_sql_08.png)
 
 ## Import Database
 
 TBC
 
-![import database](../images/azure_sql_import_01.png)
+![import database](/images/azure_sql_import_01.png)
 
 ## Data Migration Assistant
 
