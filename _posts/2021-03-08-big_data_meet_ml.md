@@ -40,15 +40,15 @@ more than one hour of video is uploaded to YouTube every second, amounting to 10
 
 Some exmple form [Phys.org](https://phys.org/)
 
-![Post from Phys.org](../images/phy0.png)
+![Post from Phys.org](/images/phy0.png)
 
-![Post from Phys.org](../images/phy01.png)
+![Post from Phys.org](/images/phy01.png)
 
-![Post from Phys.org](../images/phy02.png)
+![Post from Phys.org](/images/phy02.png)
 
-![Post from Phys.org](../images/phy03.png)
+![Post from Phys.org](/images/phy03.png)
 
-![Post from Phys.org](../images/phy04.png)
+![Post from Phys.org](/images/phy04.png)
 
 ## For ML we need Big Data
 

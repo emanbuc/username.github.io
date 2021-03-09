@@ -12,7 +12,7 @@ Turing model for natural language generation (NLG), the largest model ever publi
 
 Any model with billions parameters cannot fit into a single GPU (even one with 32GB of memory like NVIDIA VT100), so the model itself must be parallelized, or broken into pieces, across multiple GPUs.  (Model parallelism not only data parallelism).
 
-![big model trend](../images/TurningNGL_Model__1400x788.png)
+![big model trend](/images/TurningNGL_Model__1400x788.png)
 
 However, for very large models beyond a billion parameters, the memory on a single GPU is not enough to fit the model along with the parameters needed for training, requiring model parallelism to split the parameters across multiple GPUs. Several approaches to model parallelism exist, but they are difficult to use, either because they rely on custom compilers, or because they scale poorly or require changes to the optimizer.
 
