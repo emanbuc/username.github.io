@@ -18,3 +18,111 @@ Hyperdrive run configuration must include:
 - hyperparameter sampling.
 - early-termination policy.
 
+## Sampling
+
+### Grid Sampling
+
+Grid Sampling is used to try every possible combination of parameters in the search space.
+
+```Python
+from azureml.train.hyperdrive import GridParameterSampling, choice
+
+param_space = {
+                 '--batch_size': choice(16, 32, 64),
+                 '--learning_rate': choice(0.01, 0.1, 1.0)
+              }
+
+param_sampling = GridParameterSampling(param_space)
+
+```
+
+### Random Samplig
+
+Random sampling is used to randomly select a value for each hyperparameter
+
+```Python
+from azureml.train.hyperdrive import RandomParameterSampling, choice, normal
+
+param_space = {
+                 '--batch_size': choice(16, 32, 64),
+                 '--learning_rate': normal(10, 3)
+              }
+
+param_sampling = RandomParameterSampling(param_space)
+
+```
+
+### Bayesian sampling 
+
+Bayesian sampling chooses hyperparameter values based on the Bayesian optimization algorithm, which tries to select parameter combinations that will result in improved performance from the previous selection.
+
+```Python
+from azureml.train.hyperdrive import BayesianParameterSampling, choice, uniform
+
+param_space = {
+                 '--batch_size': choice(16, 32, 64),
+                 '--learning_rate': uniform(0.05, 0.1)
+              }
+
+param_sampling = BayesianParameterSampling(param_space)
+```
+
+ Note: Bayesian sampling can be used only with choice, uniform, and quniform parameter expressions, and can not be combined with an early-termination policy
+
+## Early Termination Policy
+
+With a sufficiently large hyperparameter search space, it could take many iterations (i.e. child runs) to try every possible combination. To prevent wasting time and money, in addition to a maximum number of rins, you can set an **early termination policy** that abandons runs that are unlikely to produce a better result than previously completed runs.
+
+The policy is evaluated at an `evaluation_interval` you specify. You can also set a `delay_evaluation` parameter to avoid evaluating the policy until a minimum number of iterations have been completed.
+
+Early termination is particularly useful for deep learning scenarios where a deep neural network (DNN) is trained iteratively over a number of epochs. The training script can report the target metric after each epoch, and if the run is significantly underperforming previous runs after the same number of intervals, it can be abandoned.
+
+### Bandit Policy
+
+Use a bandit policy to stop a run if the target performance metric underperforms the best run so far by a specified margin expressed as absolute value (`slack_amount`) or factor (`slack_factor`)
+
+This example applies the policy for every iteration after the first five, and abandons runs where the reported target metric is 0.2 or more worse than the best performing run after the same number of intervals.
+
+```Python
+from azureml.train.hyperdrive import BanditPolicy
+
+early_termination_policy = BanditPolicy(slack_amount = 0.2,
+                                        evaluation_interval=1,
+                                        delay_evaluation=5)
+```
+
+You can also apply a bandit policy using a slack factor, which compares the performance metric as a ratio rather than an absolute value.
+
+### Median Stopping Policy
+
+A median stopping policy abandons runs where the target performance metric is worse than the median of the running averages for all runs.
+
+```Python
+from azureml.train.hyperdrive import MedianStoppingPolicy
+
+early_termination_policy = MedianStoppingPolicy(evaluation_interval=1,
+                                                delay_evaluation=5)
+```
+
+### Truncation selection policy
+
+A truncation selection policy cancels the lowest performing X% of runs at each evaluation interval based on the truncation_percentage value you specify for X.
+
+```Python
+from azureml.train.hyperdrive import TruncationSelectionPolicy
+
+early_termination_policy = TruncationSelectionPolicy(truncation_percentage=10,
+                                                     evaluation_interval=1,
+                                                     delay_evaluation=5)
+
+```
+
+## Running a hyperparameter tuning experiment
+
+To be cpmpleted
+
+### Training script for hyperparameter tuning
+
+To be completed
+
+### Configuring hyperdrive experiment
