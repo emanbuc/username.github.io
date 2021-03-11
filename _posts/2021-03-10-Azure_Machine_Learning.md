@@ -115,3 +115,88 @@ pip install azureml-sdk[notebooks,automl,explain]
 ```
 
 For more information about installing the Azure Machine Learning SDK for Python, see the [SDK documentation](https://aka.ms/AA70rq7).
+
+### Retrieving and Viewing Logged Metrics
+
+You can view the metrics logged by an experiment run in Azure Machine Learning studio or by using the RunDetails widget in a notebook, as shown here:
+
+```Python
+from azureml.widgets import RunDetails
+
+RunDetails(run).show()
+
+```
+
+```Python
+import json
+
+# Get logged metrics
+metrics = run.get_metrics()
+print(json.dumps(metrics, indent=2))
+
+```
+
+## Experiment Output Files
+
+In addition to logging metrics, an experiment can generate output files. Often these are trained machine learning models, but you can save any sort of file and make it available as an output of your experiment run. The output files of an experiment are saved in its outputs folder.
+
+```Python
+run.upload_file(name='outputs/sample.csv', path_or_stream='./sample.csv')
+```
+
+When running an experiment in a remote compute context, any files written to the outputs folder in the compute context are automatically uploaded to the run's outputs folder when the run completes.
+
+Whichever approach you use to run your experiment, you can retrieve a list of output files from the Run object like this:
+
+```Python
+import json
+
+files = run.get_file_names()
+print(json.dumps(files, indent=2))
+```
+
+## Running a Script as an Experiment
+
+To run a script as an experiment, you must define a script configuration that defines the script to be run and the Python environment in which to run it. This is implemented by using a ScriptRunConfig object.
+
+For example, the following code could be used to run an experiment based on a script in the experiment_files folder
+
+```Python
+from azureml.core import Experiment, ScriptRunConfig
+
+# Create a script config
+script_config = ScriptRunConfig(source_directory=experiment_folder,
+                                script='experiment.py') 
+
+# submit the experiment
+experiment = Experiment(workspace = ws, name = 'my-experiment')
+run = experiment.submit(config=script_config)
+run.wait_for_completion(show_output=True)
+
+```
+An experiment script (such as experiment.py) is just a Python code file that contains the code you want to run in the experiment. To access the experiment run context (which is needed to log metrics) the script must import the **azureml.core.Run** class and call its get_context method. The script can then use the run context to log metrics, upload files, and complete the experiment.
+
+```Python
+from azureml.core import Run
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+
+# Get the experiment run context
+run = Run.get_context()
+
+# load the diabetes dataset
+data = pd.read_csv('data.csv')
+
+# Count the rows and log the result
+row_count = (len(data))
+run.log('observations', row_count)
+
+# Save a sample of the data
+os.makedirs('outputs', exist_ok=True)
+data.sample(100).to_csv("outputs/sample.csv", index=False, header=True)
+
+# Complete the run
+run.complete()
+
+```
